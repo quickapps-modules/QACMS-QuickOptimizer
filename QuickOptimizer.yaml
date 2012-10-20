@@ -1,0 +1,9 @@
+---
+name: Quick Optimizer
+description: >
+  Optimizes your site loading time by
+  using compression techniques
+category: Development
+version: 1.0
+core: '>1.0'
+author: 'Christopher Castro <chris@quickapps.es>'
