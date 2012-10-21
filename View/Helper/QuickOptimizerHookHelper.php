@@ -44,8 +44,11 @@ class QuickOptimizerHookHelper extends AppHelper {
 					$cache .= $this->__minifyCss($asset) . "\n\n";
 				}
 
-				cache(str_replace(WWW_ROOT, '', CSS) . $cacheFile, $cache, '+7 days', 'public');
+				$cacheDuration = Configure::read('Modules.QuickOptimizer.settings.cache_duration');
+				$cacheDuration = !$cacheDuration ? '+1 hour' : $cacheDuration;
 				$css[$media][] = "/css/{$cacheFile}";
+
+				cache(str_replace(WWW_ROOT, '', CSS) . $cacheFile, $cache, $cacheDuration, 'public');
 			}
 		}
 	}
@@ -89,10 +92,11 @@ class QuickOptimizerHookHelper extends AppHelper {
 			}
 
 			$cache = JSMin::minify($cache);
-
-			cache(str_replace(WWW_ROOT, '', JS) . $cacheFile, $cache, '+7 days', 'public');
-
+			$cacheDuration = Configure::read('Modules.QuickOptimizer.settings.cache_duration');
+			$cacheDuration = !$cacheDuration ? '+1 hour' : $cacheDuration;
 			$js['file'][] = "/js/{$cacheFile}";
+
+			cache(str_replace(WWW_ROOT, '', JS) . $cacheFile, $cache, $cacheDuration, 'public');
 		}
 	}
 
